@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "dotenvx run -- node -r source-map-support/register dist/index.js",
-    "build": "esbuild bin/www.js --bundle --platform=node --packages=external --outfile=dist/index.js --minify --sourcemap",
+    "start": "dotenvx run -- node dist/index.js",
+    "build": "esbuild bin/www.js --bundle --platform=node --packages=external --outfile=dist/index.js --minify",
     "lint": "standard",
     "lint-fix": "standard --fix",
     "dev": "nodemon"
@@ -13,6 +13,7 @@
     "@dotenvx/dotenvx": "^1.5.0",
     "boom": "^7.3.0",
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "morgan": "~1.9.1",
