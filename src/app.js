@@ -5,6 +5,9 @@ import cors from 'cors'
 import indexRouter from './index'
 import usersRouter from './users/route'
 import morganMiddleware from './common/middlewares/morgan'
+import { config } from './common/config'
+
+console.log('Config', config)
 
 const app = express()
 
