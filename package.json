@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node dist/index.js",
-    "build": "esbuild bin/www.js --bundle --platform=node --packages=external --outfile=dist/index.js",
+    "start": "dotenvx run -- node -r source-map-support/register dist/index.js",
+    "build": "esbuild bin/www.js --bundle --platform=node --packages=external --outfile=dist/index.js --minify --sourcemap",
     "lint": "standard",
     "lint-fix": "standard --fix",
     "dev": "nodemon"

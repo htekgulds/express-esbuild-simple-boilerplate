@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-require('@dotenvx/dotenvx').config()
-
 /**
  * Module dependencies.
  */
 
-const app = require('../src/app')
-const debug = require('debug')('express:server')
-const http = require('http')
+import app from '../src/app'
+import debug0 from 'debug'
+import http from 'http'
+
+const debug = debug0('express:server')
 
 /**
  * Get port from environment and store in Express.
@@ -60,9 +60,7 @@ function onError (error) {
     throw error
   }
 
-  const bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -85,8 +83,6 @@ function onError (error) {
 
 function onListening () {
   const addr = server.address()
-  const bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
   debug('Listening on ' + bind)
 }
