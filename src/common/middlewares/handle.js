@@ -17,7 +17,7 @@ export function handle (fn) {
     try {
       logger.debug('inside handle middleware')
       const result = await fn(req, res)
-      logger.silly(result, { label: 'Result' })
+      logger.trace(result, { label: 'Result' })
 
       if (result instanceof Error && Boom.isBoom(result)) {
         logger.error(result)
