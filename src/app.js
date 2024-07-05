@@ -2,7 +2,7 @@ import express, { json, urlencoded } from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 
-import indexRouter from './index'
+import homeRouter from './home/route'
 import usersRouter from './users/route'
 import morganMiddleware from './common/middlewares/morgan'
 import { config } from './common/config'
@@ -17,7 +17,7 @@ app.use(urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(morganMiddleware)
 
-app.use('/', indexRouter)
+app.use('/', homeRouter)
 app.use('/users', usersRouter)
 
 export default app

@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { logger } from './common/logging'
-import { handle } from './common/middlewares/handle'
+import { logger } from '../common/logging'
+import { handle } from '../common/middlewares/handle'
 import Boom from 'boom'
 const router = Router()
 
