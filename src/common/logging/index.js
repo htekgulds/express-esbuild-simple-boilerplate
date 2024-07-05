@@ -1,4 +1,5 @@
 import winston from 'winston'
+import util from 'util'
 
 const levels = {
   error: 0,
@@ -9,26 +10,48 @@ const levels = {
   trace: 5
 }
 
+const levelColors = {
+  error: 'bgRed',
+  warn: 'bgYellow',
+  info: 'bgGreen',
+  http: 'bgMagenta',
+  debug: 'bgBlue',
+  trace: 'bgGray'
+}
+
 const colors = {
   error: 'red',
   warn: 'yellow',
   info: 'green',
   http: 'magenta',
   debug: 'blue',
-  trace: 'gray'
+  trace: 'gray',
+  timestamp: 'gray',
+  metadata: 'gray'
 }
 
-winston.addColors(colors)
+function getMetadata (info) {
+  if (!info.metadata) return ''
+  if (!Object.keys(info.metadata).length) return ''
+
+  return util.inspect(info.metadata, { colors: true })
+}
+
+function getCustomFormat (info) {
+  const timestamp = winston.format.colorize({ colors }).colorize('timestamp', info.timestamp)
+  const level = winston.format.colorize({ colors: levelColors }).colorize(info.level, info.level.toUpperCase())
+  const message = typeof info.message === 'object'
+    ? util.inspect(info.message, { colors: true })
+    : winston.format.colorize({ colors }).colorize(info.level, info.message)
+
+  return `${timestamp} ${level}: ${message}
+${getMetadata(info)}`
+}
 
 const format = winston.format.combine(
-  // Add the message timestamp with the preferred format
+  winston.format.metadata(),
   winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-  // Tell Winston that the logs must be colored
-  winston.format.colorize({ all: true }),
-  // Define the format of the message showing the timestamp, the level and the message
-  winston.format.printf(
-    info => `${info.timestamp} ${info.level}: ${info.message}`
-  )
+  winston.format.printf(getCustomFormat)
 )
 
 export const logger = winston.createLogger({
