@@ -21,7 +21,7 @@ export function handle (fn) {
 
       if (result instanceof Error && Boom.isBoom(result)) {
         logger.error(result)
-        res.status(result.output.statusCode).send(formatBoomPayload(result))
+        return res.status(result.output.statusCode).send(formatBoomPayload(result))
       }
 
       return res.send(result)
